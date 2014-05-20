@@ -5,6 +5,7 @@
     "mgechev <mgechev@gmail.com>"
   ],
   "description": "Screen capturing with JavaScript",
+  "main": "dist/index.js",
   "keywords": [
     "javascript",
     "video",
