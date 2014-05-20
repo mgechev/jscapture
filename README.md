@@ -6,8 +6,14 @@ It allows you to make screenshots and record a video of your desktop from your b
 
 ## How to use
 
-JSCapture uses `getUserMedia` for screen capturing. Currently this API is supported only by Google Chrome, Canary and Chromium by enabling the experimental flag:
-[chrome://flags/#enable-usermedia-screen-capture](chrome://flags/#enable-usermedia-screen-capture).
+JSCapture uses `getUserMedia` for screen capturing. Currently the API for screen capturing is supported only by Google Chrome, Canary and Chromium by enabling an experimental [flag](chrome://flags/#enable-usermedia-screen-capture).
+
+In order to enable the flag:
+
+* Go to chrome://flags
+* Enable - "Enable screen capture support in getUserMedia()"
+
+![Chrome flags](http://bulgariajs.org/files/getusermedia-flag.png)
 
 In order to use JSCapture you should enable the screen capturing and restart your browser.
 
