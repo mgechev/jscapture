@@ -1,6 +1,15 @@
 # JSCapture
 
-Records your screen with pure JavaScript.
+JSCapture is screen capturing library implemented with pure JavaScript and HTML5.
+
+It allows you to make screenshots and record a video of your desktop from your browser.
+
+## How to use
+
+JSCapture uses `getUserMedia` for screen capturing. Currently this API is supported only by Google Chrome, Canary and Chromium by enabling the experimental flag:
+[chrome://flags/#enable-usermedia-screen-capture](chrome://flags/#enable-usermedia-screen-capture).
+
+In order to use JSCapture you should enable the screen capturing and restart your browser.
 
 ## API
 
@@ -25,6 +34,7 @@ Records your screen with pure JavaScript.
   * `config.frameRate` - (Number) default value `60` frames per second. Specifies the number of frames per second.
   * `config.done` - function, which accepts the video as argument
 * `JSCapture.stopRecording()` - Stops the video recording.
+* `JSCapture.isRecording()` - (Boolean) Returns whether the screen recording have been started.
 
 ## Author
 
