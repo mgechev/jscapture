@@ -12,10 +12,11 @@ In order to enable the flag:
 
 * Go to chrome://flags
 * Enable - "Enable screen capture support in getUserMedia()"
+* Restart your browser
+
+When you're done and you open [chrome://flags/#enable-usermedia-screen-capture](chrome://flags/#enable-usermedia-screen-capture), you should see something like:
 
 ![Chrome flags](http://bulgariajs.org/files/getusermedia-flag.png)
-
-In order to use JSCapture you should enable the screen capturing and restart your browser.
 
 ## API
 
@@ -45,6 +46,10 @@ In order to use JSCapture you should enable the screen capturing and restart you
 ## Author
 
 [![mgechev](http://www.gravatar.com/avatar/82bafb0432ce4ccc9dcc26f94d5fe5bc?s=117)](https://github.com/mgechev)
+
+## Demo
+
+
 
 ## License
 
