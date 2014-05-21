@@ -5,8 +5,8 @@ var JSCapture = JSCapture || (function () {
   'use strict';
 
   var _isRecording = false,
-      _screenWidth = screen.availWidth,
-      _screenHeight = screen.availHeight,
+      _screenWidth = screen.availWidth / 2,
+      _screenHeight = screen.availHeight / 2,
       _initialized = false,
       _stream = null,
       _video = null,
@@ -110,7 +110,7 @@ var JSCapture = JSCapture || (function () {
       _encoder = new Whammy.Video(config.frameRate);
       _isRecording = true;
       setTimeout(function () {
-        _record(0, 1000 / _currentConfig.frameRate);
+        _record(0, (1 / config.frameRate) * 1000);
       }, config.delay);
     }, config.fail);
   }
@@ -120,7 +120,9 @@ var JSCapture = JSCapture || (function () {
       return stopRecording();
     }
     _captureFrame(_currentConfig);
-    _encoder.add(_canvas);
+    setTimeout(function () {
+      _encoder.add(_canvas);
+    }, 0);
     setTimeout(function () {
       _record(current + timeout, timeout);
     }, timeout);
