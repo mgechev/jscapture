@@ -51,15 +51,10 @@ var JSCapture = JSCapture || (function () {
     config.process.forEach(function (cb) {
       cb(context, _canvas);
     });
-    if (config.scale !== 1) {
-      context.drawImage(_video, -config.x * config.scale,
-                                -config.y * config.scale,
-                                _screenWidth * config.scale,
-                                _screenHeight * config.scale);
-    } else {
-      context.drawImage(_video, -config.x,
-                                -config.y);
-    }
+    context.drawImage(_video, -config.x * config.scale,
+                              -config.y * config.scale,
+                              _screenWidth * config.scale,
+                              _screenHeight * config.scale);
   }
 
   function _setDefaults(config) {
