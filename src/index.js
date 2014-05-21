@@ -25,7 +25,8 @@ var JSCapture = JSCapture || (function () {
     process: [],
     duration: Infinity,
     frameRate: 32,
-    fail: function () {}
+    fail: function () {},
+    captureStarted: function () {}
   };
 
   navigator.getUserMedia =
@@ -35,6 +36,7 @@ var JSCapture = JSCapture || (function () {
     _setDefaults(config);
     _initialize(function () {
       if (typeof config.done === 'function') {
+        config.captureStarted();
         setTimeout(function () {
           _captureFrame(config);
           config.done(_canvas.toDataURL());

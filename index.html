@@ -28,6 +28,22 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-custom">
 
+    <div class="modal fade" id="result-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Here we go...</h4>
+          </div>
+          <div class="modal-body">
+            <h1 id="count-down"></h1>
+            <img id="result-image">
+            <video id="video-result"></video>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header page-scroll">
@@ -68,8 +84,8 @@
                           JSCapture uses experimental API of Google Chrome. In order to use it, please read the <a href="https://github.com/mgechev/jscapture#how-to-use">instructions</a>.
                         </p>
                         <div class="page-scroll">
-                          <button class="btn btn-default">Capture</button>
-                          <button class="btn btn-default">Record</button>
+                          <button class="btn btn-default" id="capture-button">Capture</button>
+                          <button class="btn btn-default" id="record-button">Record</button>
                         </div>
                     </div>
                 </div>
@@ -77,6 +93,52 @@
         </div>
     </section>
 
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+ 
+      function showImage(image) {
+        $('#result-image').attr('src', image);
+        $('#count-down').html('');
+      }
+
+      function showCountdown(duration, step, el) {
+        if (duration === 0) {
+          el.html('Readyy!');
+          return;
+        }
+        el.html(duration / 1000);
+        setTimeout(function () {
+          showCountdown(duration - step, step, el);
+        }, step);
+      }
+ 
+      document.querySelector('#capture-button').onclick = function () {
+        $('#result-modal').modal('show');
+        $('#result-image').removeAttr('src');
+        JSCapture.capture({
+          captureStarted: function () {
+            showCountdown(3000, 1000, $('#count-down'));
+          },
+          done: showImage,
+          fail: function () {
+            alert('Error, while capturing your screen');
+          },
+          delay: 3000
+        });
+      };
+      document.querySelector('#record-button').onclick = function () {
+        JSCapture.record({
+          done: showVideo,
+          fail: function () {
+            alert('Error, while recording your screen');
+          },
+          duration: 10000,
+          scale: 0.5
+        });
+      };
+
+    </script>
     <script src="bower_components/whammy/whammy.js"></script>
     <script src="dist/index.js"></script>
 

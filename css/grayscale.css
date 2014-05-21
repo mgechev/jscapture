@@ -347,3 +347,12 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
 }
+
+#count-down {
+    color: black;
+    text-align: center;
+}
+
+#result-modal img {
+  max-width: 100%;
+}
