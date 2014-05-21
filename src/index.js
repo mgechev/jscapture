@@ -6,23 +6,28 @@ var JSCapture = JSCapture || (function () {
       _screenWidth = screen.availWidth,
       _screenHeight = screen.availHeight,
       _initialized = false,
-      _stream = null;
+      _stream = null,
+      _video = null,
+      _canvas = null;
 
   navigator.getUserMedia =
     navigator.getUserMedia || navigator.webkitGetUserMedia;
 
   function capture(config) {
-    _getStream(function (stream) {
+    _initialize(function () {
       if (typeof config.done === 'function') {
-        config.done(_captureFrame(config, stream));
+        _captureFrame(config)
+        config.done(/*export as data URI*/);
       }
     }, config.fail);
   }
 
-  function _captureFrame(config, stream) {
+  function _captureFrame(config) {
+    var context = _canvas.getContext('2d');
+    context.drawImage(_video, _video.width, _video.height);
   }
 
-  function _getStream(success, error) {
+  function _initialize(success, error) {
     if (_initialized) {
       success(_stream);
     } else {
@@ -39,8 +44,21 @@ var JSCapture = JSCapture || (function () {
       }, function (stream) {
         _stream = stream;
         _initialized = true;
+        _canvas = _createHiddenElement('canvas');
+        _video = _createHiddenElement('video');
+        _video.src = URL.createObjectURL(stream);
+        success(stream);
       }, error);
     }
+  }
+
+  function _createHiddenElement(elem) {
+    var el = document.createElement(elem);
+    document.body.appendChild(el);
+    el.style.position = 'absolute';
+    el.style.top = '-9999px';
+    el.style.left = '-9999px';
+    return el;
   }
 
   function record(config) {
