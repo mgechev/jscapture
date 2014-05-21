@@ -5,12 +5,13 @@ var JSCapture = JSCapture || (function () {
   'use strict';
 
   var _isRecording = false,
-      _screenWidth = screen.availWidth / 3,
-      _screenHeight = screen.availHeight / 3,
+      _screenWidth = screen.availWidth,
+      _screenHeight = screen.availHeight,
       _initialized = false,
       _stream = null,
       _video = null,
       _canvas = null,
+      _bufferElems = {},
       _encoder;
 
   var _defaultConfig = {
@@ -19,6 +20,7 @@ var JSCapture = JSCapture || (function () {
     y: 0,
     width: _screenWidth,
     height: _screenHeight,
+    scale: 1,
     done: function () {},
     process: [],
     duration: Infinity,
@@ -39,17 +41,25 @@ var JSCapture = JSCapture || (function () {
           //_stream.close();
         }, config.delay);
       }
-    }, config.fail);
+    }, config);
   }
 
   function _captureFrame(config) {
     var context = _canvas.getContext('2d');
-    _canvas.width = config.width;
-    _canvas.height = config.height;
+    _canvas.width = config.width * config.scale;
+    _canvas.height = config.height * config.scale;
     config.process.forEach(function (cb) {
       cb(context, _canvas);
     });
-    context.drawImage(_video, -config.x, -config.y);
+    if (config.scale !== 1) {
+      context.drawImage(_video, -config.x * config.scale,
+                                -config.y * config.scale,
+                                _screenWidth * config.scale,
+                                _screenHeight * config.scale);
+    } else {
+      context.drawImage(_video, -config.x,
+                                -config.y);
+    }
   }
 
   function _setDefaults(config) {
@@ -60,7 +70,7 @@ var JSCapture = JSCapture || (function () {
     return config;
   }
 
-  function _initialize(success, error) {
+  function _initialize(success, config) {
     if (_initialized) {
       success(_stream);
     } else {
@@ -77,24 +87,24 @@ var JSCapture = JSCapture || (function () {
       }, function (stream) {
         _stream = stream;
         _initialized = true;
-        _canvas = _createHiddenElement('canvas');
-        _video = _createHiddenElement('video');
+        _canvas = _createHiddenElement('canvas', config);
+        _video = _createHiddenElement('video', config);
         _video.src = URL.createObjectURL(stream);
         _video.oncanplay = function () {
           success(stream);
         };
-      }, error);
+      }, config.fail);
     }
   }
 
-  function _createHiddenElement(elem) {
-    var el = document.createElement(elem);
+  function _createHiddenElement(elem, config) {
+    var el = _bufferElems[elem] || document.createElement(elem);
     document.body.appendChild(el);
-    el.width = _screenWidth;
-    el.height = _screenHeight;
+    el.width = _screenWidth * config.scale;
+    el.height = _screenHeight * config.scale;
     el.style.position = 'absolute';
-    el.style.top = -_screenHeight + 'px';
-    el.style.left = -_screenWidth + 'px';
+    el.style.top = (-_screenHeight * config.scale) + 'px';
+    el.style.left = (-_screenWidth * config.scale) + 'px';
     if (elem === 'video') {
       el.setAttribute('autoplay', true);
     }
@@ -112,7 +122,7 @@ var JSCapture = JSCapture || (function () {
       setTimeout(function () {
         _record(0, (1 / config.frameRate) * 1000, config);
       }, config.delay);
-    }, config.fail);
+    }, config);
   }
 
   function _record(current, timeout, config) {
@@ -133,7 +143,9 @@ var JSCapture = JSCapture || (function () {
       var result = _encoder.compile();
       _isRecording = false;
 //      _stream.stop();
-      done(result);
+      if (typeof done === 'function') {
+        done(result);
+      }
     }
   }
 

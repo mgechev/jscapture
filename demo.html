@@ -26,8 +26,9 @@
           },
           x: 10,
           y: 100,
-          width: 200,
-          height: 200
+          width: 800,
+          height: 400,
+          scale: 1.5
         });
       };
       document.querySelector('#record-button').onclick = function () {
@@ -36,7 +37,8 @@
           fail: function () {
             alert('Error, while recording your screen');
           },
-          duration: 5000
+          duration: 10000,
+          scale: 0.5
         });
       };
     </script>
