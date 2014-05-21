@@ -53,7 +53,7 @@ When you're done and you open [chrome://flags/#enable-usermedia-screen-capture](
 
 ## Demo
 
-
+[Here](https://mgechev.github.io/jscapture/)
 
 ## License
 
