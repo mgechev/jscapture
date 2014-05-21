@@ -5,8 +5,8 @@ var JSCapture = JSCapture || (function () {
   'use strict';
 
   var _isRecording = false,
-      _screenWidth = screen.availWidth / 2,
-      _screenHeight = screen.availHeight / 2,
+      _screenWidth = screen.availWidth / 3,
+      _screenHeight = screen.availHeight / 3,
       _initialized = false,
       _stream = null,
       _video = null,
@@ -36,6 +36,7 @@ var JSCapture = JSCapture || (function () {
         setTimeout(function () {
           _captureFrame(config);
           config.done(_canvas.toDataURL());
+          //_stream.close();
         }, config.delay);
       }
     }, config.fail);
@@ -116,7 +117,7 @@ var JSCapture = JSCapture || (function () {
 
   function _record(current, timeout, config) {
     if (current >= config.duration) {
-      return stopRecording();
+      return stopRecording(config.done);
     }
     _captureFrame(config);
     setTimeout(function () {
@@ -131,6 +132,7 @@ var JSCapture = JSCapture || (function () {
     if (_isRecording) {
       var result = _encoder.compile();
       _isRecording = false;
+//      _stream.stop();
       done(result);
     }
   }

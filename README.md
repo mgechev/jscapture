@@ -14,6 +14,8 @@ In order to enable the flag:
 * Enable - "Enable screen capture support in getUserMedia()"
 * Restart your browser
 
+Note that you MUST use `https` in order to be allowed to do screen recording.
+
 When you're done and you open [chrome://flags/#enable-usermedia-screen-capture](chrome://flags/#enable-usermedia-screen-capture), you should see something like:
 
 ![Chrome flags](http://bulgariajs.org/files/getusermedia-flag.png)
@@ -42,7 +44,7 @@ When you're done and you open [chrome://flags/#enable-usermedia-screen-capture](
   * `config.fail` - (Function) default value is `undefined`. A callback, which is being executed on unsuccessful screen recording (for example if the user does not allow screen capturing).
   * `config.duration` - (Number) default is `Infinity`. A number which indicates the length of the video.
 * `JSCapture.stopRecording(fn)` - Stops the video recording.
-  * `fn` - (Function) default value is `undefined`. A callback, which accepts the video (as a Blob), result of the screen recording, as an argument.
+  * `fn` - (Function) default value is `undefined`. A callback, which accepts the video (as a Blob), result of the screen recording, as an argument. Note that the callback provided in `config.done` won't be invoked if `JSCapture.stopRecording(fn)` is called.
 * `JSCapture.isRecording()` - (Boolean) Returns whether the screen recording have been started.
 
 ## Author
