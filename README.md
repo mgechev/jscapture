@@ -40,6 +40,7 @@ When you're done and you open [chrome://flags/#enable-usermedia-screen-capture](
   * `config.frameRate` - (Number) default value `60` frames per second. Specifies the number of frames per second.
   * `config.done` - (Function) default value is `undefined`. A callback, which accepts the video, result of the screen recording, as an argument
   * `config.fail` - (Function) default value is `undefined`. A callback, which is being executed on unsuccessful screen recording (for example if the user does not allow screen capturing).
+  * `config.duration` - (Number) default is `Infinity`. A number which indicates the length of the video.
 * `JSCapture.stopRecording()` - Stops the video recording.
 * `JSCapture.isRecording()` - (Boolean) Returns whether the screen recording have been started.
 

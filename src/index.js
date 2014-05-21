@@ -8,7 +8,8 @@ var JSCapture = JSCapture || (function () {
       _initialized = false,
       _stream = null,
       _video = null,
-      _canvas = null;
+      _canvas = null,
+      _currentConfig, _encoder;
 
   var _defaultConfig = {
     delay: 0,
@@ -18,6 +19,8 @@ var JSCapture = JSCapture || (function () {
     height: _screenHeight,
     done: function () {},
     process: [],
+    duration: Infinity,
+    frameRate: 32,
     fail: function () {}
   };
 
@@ -96,11 +99,37 @@ var JSCapture = JSCapture || (function () {
   }
 
   function record(config) {
-    _isRecording = true;
+    _setDefaults(config);
+    _currentConfig = config;
+    if (typeof Whammy === 'undefined') {
+      throw new Error('Whammy is required as dependency for screen recording');
+    }
+    _initialize(function () {
+      _encoder = new Whammy.Video(config.frameRate);
+      _isRecording = true;
+      setTimeout(function () {
+        _record(0, 1000 / _currentConfig.frameRate);
+      }, config.delay);
+    }, config.fail);
+  }
+
+  function _record(current, timeout) {
+    if (current >= _currentConfig.duration) {
+      return stopRecording();
+    }
+    _captureFrame(_currentConfig);
+    _encoder.add(_canvas);
+    setTimeout(function () {
+      _record(current + timeout, timeout);
+    }, timeout);
   }
 
   function stopRecording() {
-    _isRecording = false;
+    if (_isRecording) {
+      var result = _encoder.compile();
+      _isRecording = false;
+      _currentConfig.done(result);
+    }
   }
 
   function isRecording() {
