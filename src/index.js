@@ -1,3 +1,5 @@
+/* global screen, navigator, setTimeout, URL, Whammy, document */
+
 var JSCapture = JSCapture || (function () {
 
   'use strict';
@@ -32,7 +34,7 @@ var JSCapture = JSCapture || (function () {
     _initialize(function () {
       if (typeof config.done === 'function') {
         setTimeout(function () {
-          _captureFrame(config)
+          _captureFrame(config);
           config.done(_canvas.toDataURL());
         }, config.delay);
       }
