@@ -38,10 +38,11 @@ When you're done and you open [chrome://flags/#enable-usermedia-screen-capture](
   * `config.done` - (Function) default value is `undefined`. Callback, which is being called with the captured video.
   * `config.delay` - (Number) default value `0`. Specifies the delay after each the video will be captured.
   * `config.frameRate` - (Number) default value `60` frames per second. Specifies the number of frames per second.
-  * `config.done` - (Function) default value is `undefined`. A callback, which accepts the video, result of the screen recording, as an argument
+  * `config.done` - (Function) default value is `undefined`. A callback, which accepts the video (as a Blob), result of the screen recording, as an argument
   * `config.fail` - (Function) default value is `undefined`. A callback, which is being executed on unsuccessful screen recording (for example if the user does not allow screen capturing).
   * `config.duration` - (Number) default is `Infinity`. A number which indicates the length of the video.
-* `JSCapture.stopRecording()` - Stops the video recording.
+* `JSCapture.stopRecording(fn)` - Stops the video recording.
+  * `fn` - (Function) default value is `undefined`. A callback, which accepts the video (as a Blob), result of the screen recording, as an argument.
 * `JSCapture.isRecording()` - (Boolean) Returns whether the screen recording have been started.
 
 ## Author
