@@ -9,6 +9,7 @@ var JSCapture = JSCapture || (function () {
       _stream = null,
       _video = null,
       _canvas = null;
+
   var _defaultConfig = {
     delay: 0,
     x: 0,
@@ -17,7 +18,6 @@ var JSCapture = JSCapture || (function () {
     height: _screenHeight,
     done: function () {},
     process: [],
-    blackWhite: false,
     fail: function () {}
   };
 
