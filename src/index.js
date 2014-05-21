@@ -44,6 +44,35 @@ var JSCapture = JSCapture || (function () {
     }, config);
   }
 
+  function record(config) {
+    _setDefaults(config);
+    if (typeof Whammy === 'undefined') {
+      throw new Error('Whammy is required as dependency for screen recording');
+    }
+    _initialize(function () {
+      _encoder = new Whammy.Video(config.frameRate);
+      _isRecording = true;
+      setTimeout(function () {
+        _record(0, (1 / config.frameRate) * 1000, config);
+      }, config.delay);
+    }, config);
+  }
+
+  function stopRecording(done) {
+    if (_isRecording) {
+      var result = _encoder.compile();
+      _isRecording = false;
+//      _stream.stop();
+      if (typeof done === 'function') {
+        done(result);
+      }
+    }
+  }
+
+  function isRecording() {
+    return _isRecording;
+  }
+
   function _captureFrame(config) {
     var context = _canvas.getContext('2d');
     _canvas.width = config.width * config.scale;
@@ -106,20 +135,6 @@ var JSCapture = JSCapture || (function () {
     return el;
   }
 
-  function record(config) {
-    _setDefaults(config);
-    if (typeof Whammy === 'undefined') {
-      throw new Error('Whammy is required as dependency for screen recording');
-    }
-    _initialize(function () {
-      _encoder = new Whammy.Video(config.frameRate);
-      _isRecording = true;
-      setTimeout(function () {
-        _record(0, (1 / config.frameRate) * 1000, config);
-      }, config.delay);
-    }, config);
-  }
-
   function _record(current, timeout, config) {
     if (current >= config.duration) {
       return stopRecording(config.done);
@@ -133,21 +148,6 @@ var JSCapture = JSCapture || (function () {
     }, timeout);
   }
 
-  function stopRecording(done) {
-    if (_isRecording) {
-      var result = _encoder.compile();
-      _isRecording = false;
-//      _stream.stop();
-      if (typeof done === 'function') {
-        done(result);
-      }
-    }
-  }
-
-  function isRecording() {
-    return _isRecording;
-  }
-
   return {
     capture: capture,
     record: record,
@@ -155,3 +155,4 @@ var JSCapture = JSCapture || (function () {
     isRecording: isRecording
   };
 }());
+
