@@ -38,7 +38,7 @@
           <div class="modal-body">
             <h1 id="count-down"></h1>
             <img id="result-image">
-            <video id="video-result"></video>
+            <video id="result-video" autoplay></video>
           </div>
         </div>
       </div>
@@ -96,47 +96,65 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
- 
-      function showImage(image) {
-        $('#result-image').attr('src', image);
-        $('#count-down').html('');
-      }
 
-      function showCountdown(duration, step, el) {
-        if (duration === 0) {
-          el.html('Readyy!');
-          return;
+      (function () { 
+
+        function showImage(image) {
+          $('#result-image').attr('src', image);
+          $('#count-down').html('');
         }
-        el.html(duration / 1000);
-        setTimeout(function () {
-          showCountdown(duration - step, step, el);
-        }, step);
-      }
- 
-      document.querySelector('#capture-button').onclick = function () {
-        $('#result-modal').modal('show');
-        $('#result-image').removeAttr('src');
-        JSCapture.capture({
-          captureStarted: function () {
-            showCountdown(3000, 1000, $('#count-down'));
-          },
-          done: showImage,
-          fail: function () {
-            alert('Error, while capturing your screen');
-          },
-          delay: 3000
-        });
-      };
-      document.querySelector('#record-button').onclick = function () {
-        JSCapture.record({
-          done: showVideo,
-          fail: function () {
-            alert('Error, while recording your screen');
-          },
-          duration: 10000,
-          scale: 0.5
-        });
-      };
+
+        function showVideo(video) {
+          $('#result-video').attr('src', URL.createObjectURL(video));
+          $('#count-down').html('');
+        }
+
+        function showCountdown(prefix, duration, step, el) {
+          if (duration === 0) {
+            el.html('Readyy!');
+            return;
+          }
+          el.html(prefix + ' ' + (duration / 1000));
+          setTimeout(function () {
+            showCountdown(prefix, duration - step, step, el);
+          }, step);
+        }
+   
+        document.querySelector('#capture-button').onclick = function () {
+          $('#result-modal').modal('show');
+          $('#result-image').removeAttr('src');
+          $('#result-video').hide();
+          $('#result-image').show();
+          JSCapture.capture({
+            captureStarted: function () {
+              showCountdown('', 3000, 1000, $('#count-down'));
+            },
+            done: showImage,
+            fail: function () {
+              alert('Error, while capturing your screen');
+            },
+            delay: 3000
+          });
+        };
+        document.querySelector('#record-button').onclick = function () {
+          $('#result-modal').modal('show');
+          $('#result-video').removeAttr('src');
+          $('#result-video').show();
+          $('#result-image').hide();
+          JSCapture.record({
+            captureStarted: function () {
+              showCountdown('Recording...', 5000, 1000, $('#count-down'));
+            },
+            done: showVideo,
+            fail: function () {
+              alert('Error, while recording your screen');
+            },
+            duration: 5000,
+            scale: 0.3
+          });
+        };
+
+     }());
 
     </script>
     <script src="bower_components/whammy/whammy.js"></script>

@@ -121,6 +121,7 @@ var JSCapture = JSCapture || (function () {
     _initialize(function () {
       _encoder = new Whammy.Video(config.frameRate);
       _isRecording = true;
+      config.captureStarted();
       setTimeout(function () {
         _record(0, (1 / config.frameRate) * 1000, config);
       }, config.delay);
