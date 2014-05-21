@@ -5,9 +5,25 @@
   </head>
   <body>
     <button id="record-button">Record</button>
+    <img id="result-image">
     <script src="src/index.js"></script>
     <script src="bower_components/whammy/whammy.js"></script>
     <script>
+      function showImage(img) {
+        document.querySelector('#result-image').src = img;
+      }
+      document.querySelector('#record-button').onclick = function () {
+        JSCapture.capture({
+          done: showImage,
+          fail: function () {
+            alert('Error, while capturing your screen');
+          },
+          x: 10,
+          y: 100,
+          width: 200,
+          height: 200
+        });
+      };
     </script>
   </body>
 </html>

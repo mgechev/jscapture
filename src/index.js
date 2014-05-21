@@ -9,22 +9,46 @@ var JSCapture = JSCapture || (function () {
       _stream = null,
       _video = null,
       _canvas = null;
+  var _defaultConfig = {
+    delay: 0,
+    x: 0,
+    y: 0,
+    width: _screenWidth,
+    height: _screenHeight,
+    done: function () {},
+    process: [],
+    blackWhite: false,
+    fail: function () {}
+  };
 
   navigator.getUserMedia =
     navigator.getUserMedia || navigator.webkitGetUserMedia;
 
   function capture(config) {
+    _setDefaults(config);
     _initialize(function () {
       if (typeof config.done === 'function') {
-        _captureFrame(config)
-        config.done(/*export as data URI*/);
+        setTimeout(function () {
+          _captureFrame(config)
+          config.done(_canvas.toDataURL());
+        }, config.delay);
       }
     }, config.fail);
   }
 
   function _captureFrame(config) {
     var context = _canvas.getContext('2d');
-    context.drawImage(_video, _video.width, _video.height);
+    _canvas.width = config.width;
+    _canvas.height = config.height;
+    context.drawImage(_video, -config.x, -config.y);
+  }
+
+  function _setDefaults(config) {
+    var keys = Object.keys(_defaultConfig);
+    keys.forEach(function (key) {
+      config[key] = config[key] || _defaultConfig[key];
+    });
+    return config;
   }
 
   function _initialize(success, error) {
@@ -47,7 +71,9 @@ var JSCapture = JSCapture || (function () {
         _canvas = _createHiddenElement('canvas');
         _video = _createHiddenElement('video');
         _video.src = URL.createObjectURL(stream);
-        success(stream);
+        _video.oncanplay = function () {
+          success(stream);
+        };
       }, error);
     }
   }
@@ -55,9 +81,14 @@ var JSCapture = JSCapture || (function () {
   function _createHiddenElement(elem) {
     var el = document.createElement(elem);
     document.body.appendChild(el);
+    el.width = _screenWidth;
+    el.height = _screenHeight;
     el.style.position = 'absolute';
-    el.style.top = '-9999px';
-    el.style.left = '-9999px';
+    el.style.top = -_screenHeight + 'px';
+    el.style.left = -_screenWidth + 'px';
+    if (elem === 'video') {
+      el.setAttribute('autoplay', true);
+    }
     return el;
   }
 
