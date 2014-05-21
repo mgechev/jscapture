@@ -40,6 +40,9 @@ var JSCapture = JSCapture || (function () {
     var context = _canvas.getContext('2d');
     _canvas.width = config.width;
     _canvas.height = config.height;
+    config.process.forEach(function (cb) {
+      cb(context, _canvas);
+    });
     context.drawImage(_video, -config.x, -config.y);
   }
 
