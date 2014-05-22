@@ -1,5 +1,8 @@
 # JSCapture
 
+**The flag #enable-usermedia-screen-capture [won't be available](https://codereview.chromium.org/270353002) at Chrome 35 Stable and later versions**
+
+
 JSCapture is screen capturing library implemented with pure JavaScript and HTML5.
 
 It allows you to make screenshots and record a video of your desktop from your browser.
