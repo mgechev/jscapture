@@ -155,4 +155,3 @@ var JSCapture = JSCapture || (function () {
     isRecording: isRecording
   };
 }());
-
