@@ -81,7 +81,7 @@
                           Capture your desktop with pure client-side JavaScript.
                         </p>
                         <p>
-                          JSCapture uses experimental API of Google Chrome. In order to use it, please read the <a href="https://github.com/mgechev/jscapture#how-to-use">instructions</a>.
+                          JSCapture uses experimental API of Google Chrome/Canary/Chromium. In order to use it, please read the <a href="https://github.com/mgechev/jscapture#how-to-use">instructions</a>.
                         </p>
                         <div class="page-scroll">
                           <button class="btn btn-default" id="capture-button">Capture</button>
@@ -119,7 +119,7 @@
             showCountdown(prefix, duration - step, step, el);
           }, step);
         }
-   
+
         document.querySelector('#capture-button').onclick = function () {
           $('#result-modal').modal('show');
           $('#result-image').removeAttr('src');
