@@ -356,3 +356,7 @@ body {
 #result-modal img {
   max-width: 100%;
 }
+
+.modal-body {
+  text-align: center;
+}
