@@ -39,6 +39,7 @@
             <h1 id="count-down"></h1>
             <img id="result-image">
             <video id="result-video" autoplay></video>
+            <a href="#" id="download-link" download="">Download</a>
           </div>
         </div>
       </div>
@@ -102,11 +103,17 @@
         function showImage(image) {
           $('#result-image').attr('src', image);
           $('#count-down').html('');
+          $('#download-link').show();
+          $('#download-link').attr('download', 'screenshot.png');
+          $('#download-link').attr('src', image);
         }
 
         function showVideo(video) {
           $('#result-video').attr('src', URL.createObjectURL(video));
           $('#count-down').html('');
+          $('#download-link').show();
+          $('#download-link').attr('download', 'screen-recording.webm');
+          $('#download-link').attr('src', video);
         }
 
         function showCountdown(prefix, duration, step, el) {
@@ -125,6 +132,7 @@
           $('#result-image').removeAttr('src');
           $('#result-video').hide();
           $('#result-image').show();
+          $('#download-link').hide();
           JSCapture.capture({
             captureStarted: function () {
               showCountdown('', 3000, 1000, $('#count-down'));
@@ -141,6 +149,7 @@
           $('#result-video').removeAttr('src');
           $('#result-video').show();
           $('#result-image').hide();
+          $('#download-link').hide();
           JSCapture.record({
             captureStarted: function () {
               showCountdown('Recording...', 5000, 1000, $('#count-down'));
