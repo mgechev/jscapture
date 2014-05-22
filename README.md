@@ -10,7 +10,7 @@ JSCapture uses `getUserMedia` for screen capturing. Currently the API for screen
 
 In order to enable the flag:
 
-* Go to [chrome://flags/#enable-usermedia-screen-capture][chromeFlag]
+* Go to chrome://flags/#enable-usermedia-screen-capture
 * Enable - "Enable screen capture support in getUserMedia()"
 * Restart your browser.
 
@@ -58,5 +58,3 @@ When you're done and you open [chrome://flags/#enable-usermedia-screen-capture][
 ## License
 
 This software is distributed under the terms of the MIT license.
-
-[chromeFlag] chrome://flags/#enable-usermedia-screen-capture
