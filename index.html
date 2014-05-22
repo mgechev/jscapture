@@ -105,7 +105,7 @@
           $('#count-down').html('');
           $('#download-link').show();
           $('#download-link').attr('download', 'screenshot.png');
-          $('#download-link').attr('src', image);
+          $('#download-link').attr('href', image);
         }
 
         function showVideo(video) {
@@ -113,7 +113,7 @@
           $('#count-down').html('');
           $('#download-link').show();
           $('#download-link').attr('download', 'screen-recording.webm');
-          $('#download-link').attr('src', video);
+          $('#download-link').attr('href', video);
         }
 
         function showCountdown(prefix, duration, step, el) {
