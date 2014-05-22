@@ -10,9 +10,9 @@ JSCapture uses `getUserMedia` for screen capturing. Currently the API for screen
 
 In order to enable the flag:
 
-* Go to chrome://flags
+* Go to chrome://flags/#enable-usermedia-screen-capture
 * Enable - "Enable screen capture support in getUserMedia()"
-* Restart your browser
+* Restart your browser.
 
 Note that you MUST use `https` in order to be allowed to do screen recording. Since there are some **very expensive** operations happening when each frame is being captured the video won't be useful when you're capturing a high resolution. In order to handle this issue use the `scale` property.
 
