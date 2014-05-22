@@ -39,6 +39,7 @@
             <h1 id="count-down"></h1>
             <img id="result-image">
             <video id="result-video" autoplay></video>
+            <br>
             <a href="#" id="download-link" download="">Download</a>
           </div>
         </div>
@@ -109,7 +110,8 @@
         }
 
         function showVideo(video) {
-          $('#result-video').attr('src', URL.createObjectURL(video));
+          video = URL.createObjectURL(video);
+          $('#result-video').attr('src', video);
           $('#count-down').html('');
           $('#download-link').show();
           $('#download-link').attr('download', 'screen-recording.webm');
