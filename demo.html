@@ -22,7 +22,7 @@
         JSCapture.capture({
           done: showImage,
           fail: function () {
-            alert('Error, while capturing your screen');
+            alert('Error, while capturing your screen. Make sure you have followed the instructions and enabled the experimental flag at chrome://flags.');
           },
           x: 10,
           y: 100,
@@ -35,7 +35,7 @@
         JSCapture.record({
           done: showVideo,
           fail: function () {
-            alert('Error, while recording your screen');
+            alert('Error, while capturing your screen. Make sure you have followed the instructions and enabled the experimental flag at chrome://flags.');
           },
           duration: 10000,
           scale: 0.5
