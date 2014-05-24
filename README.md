@@ -49,10 +49,6 @@ Note that you MUST use `https` in order to be allowed to do screen recording. Si
   * `fn` - (Function) default value is `undefined`. A callback, which accepts the video (as a Blob), result of the screen recording, as an argument. Note that the callback provided in `config.done` won't be invoked if `JSCapture.stopRecording(fn)` is called.
 * `JSCapture.isRecording()` - (Boolean) Returns whether the screen recording have been started.
 
-## Author
-
-[![mgechev](http://www.gravatar.com/avatar/82bafb0432ce4ccc9dcc26f94d5fe5bc?s=117)](https://github.com/mgechev)
-
 ## Demo
 
 [Here](https://mgechev.github.io/jscapture/)
