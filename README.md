@@ -57,6 +57,13 @@ When you're done and you open chrome://flags/#enable-usermedia-screen-capture, y
 
 [Here](https://mgechev.github.io/jscapture/)
 
+## Contributors
+
+[![mgechev](http://www.gravatar.com/avatar/82bafb0432ce4ccc9dcc26f94d5fe5bc?s=117)](https://github.com/mgechev) |[![jbrooksuk](http://www.gravatar.com/avatar/13616b6551a3854378f9e6fea964e519?s=117)](https://github.com/jbrooksuk) |[![themgt](http://www.gravatar.com/avatar/8ad9f63b9bd8e84da55eb083d25344db?s=117)](https://github.com/themgt) |[![hemanth](http://www.gravatar.com/avatar/d32a6bf2b43bf62a7212f0c793d76319?s=117)](https://github.com/hemanth) |
+:---: |:---: |:---: |:---: |
+[mgechev](https://github.com/mgechev) |[jbrooksuk](https://github.com/jbrooksuk) |[themgt](https://github.com/themgt) |[hemanth](https://github.com/hemanth) |
+
+
 ## License
 
 This software is distributed under the terms of the MIT license.
