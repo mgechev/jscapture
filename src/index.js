@@ -122,8 +122,12 @@ var JSCapture = JSCapture || (function () {
   }
 
   function _createHiddenElement(elem, config) {
-    var el = _bufferElems[elem] || document.createElement(elem);
-    document.body.appendChild(el);
+    var el = _bufferElems[elem];
+    if (!el) {
+      el = document.createElement(elem);
+      document.body.appendChild(el);
+      _bufferElems[elem] = el;
+    }
     el.width = _screenWidth * config.scale;
     el.height = _screenHeight * config.scale;
     el.style.position = 'absolute';
