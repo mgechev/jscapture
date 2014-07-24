@@ -1,3 +1,7 @@
+# Warning!
+
+**JSCapture won't work in Chrome 37+** due to removal of the experimental desktop sharing API.
+
 # JSCapture
 
 **The flag #enable-usermedia-screen-capture [won't be available](https://codereview.chromium.org/270353002) at Chrome 35 Stable and later versions**
